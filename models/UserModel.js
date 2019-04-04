@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const DatabaseSchema = mongoose.Schema;
 
 const schemaUser = new DatabaseSchema({
-    username: {
+    userName: {
         type: String,
         unique: true,
         required: true
@@ -11,7 +11,7 @@ const schemaUser = new DatabaseSchema({
         type: String,
         required: true
     },
-    creationdate: {
+    creationDate: {
         type: Date,
         default: Date.now
     }
