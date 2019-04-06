@@ -10,7 +10,11 @@ const schemaMessage = new DatabaseSchema({
     messageCreationDate: {
         type: Date,
         default: Date.now
-    }
+    },
+	creatorId: {
+		type: String,
+		required: true
+	}
 });
 
-module.exports = mongoose.model('Message MongoDB Schema', schemaMessage);
+module.exports = mongoose.model('messages', schemaMessage);

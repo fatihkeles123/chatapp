@@ -5,9 +5,16 @@ const { importSchema } = require('graphql-import');
 require('dotenv').config();
 const resolvers = require('./graphql/resolvers');
 
+const User = require('./models/UserModel');
+const Message = require('./models/MessageModel');
+
 const server = new ApolloServer({
     typeDefs: importSchema('./graphql/schema.graphql'),
-    resolvers
+    resolvers,
+    context: {
+        User,
+		Message
+    }
 });
 
 console.log(process.env.MONGODB_DATABASE_SERVER);
