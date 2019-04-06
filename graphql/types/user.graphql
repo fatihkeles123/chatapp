@@ -24,7 +24,7 @@ type Token{
 }
 
 type Mutation{
-    createUser(userName: String! password: String!): User
+    createUser(userName: String! password: String!): Token
     createMessage(messageBody: String! creatorId: String!): Message
-	loginUser(userName: String! password: String!): User
+	loginUser(userName: String! password: String!): Token
 }

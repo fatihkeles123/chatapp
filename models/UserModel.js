@@ -20,7 +20,7 @@ const schemaUser = new DatabaseSchema({
 
 schemaUser.pre('save', function(next){
     if(!this.isModified('password')){
-		return next()
+		return next();
 	}
     bcrypt.hash(this.password, 10)
         .then(hash => {
