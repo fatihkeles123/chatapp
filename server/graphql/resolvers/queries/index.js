@@ -17,7 +17,7 @@ const Query = {
 		  return null;
 		}
 
-		return await User.findOne({ userName: activeUser.username });
+		return await User.findOne({ userName: activeUser.userName });
 	}
 };      
 

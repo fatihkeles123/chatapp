@@ -5,7 +5,9 @@ import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import sessionWrapper from './components/hoc/SessionWrapper';
 import SignUp from './containers/SignUp/SignUp.js';
 import Login from './containers/Login/Login.js';
+import MainPage from './containers/MainPage/MainPage.js';
 import Menu from './components/UI/Menu';
+
 import './App.css';
 
 const client = new ApolloClient({
@@ -22,13 +24,13 @@ const client = new ApolloClient({
   }
 });
 
-const Header = ({ refetch }) => {
+const Header = ({ refetch, session }) => {
 	console.log("Header : "+ refetch);
 return	<BrowserRouter>
 		<Fragment>
-			<Menu />
+			<Menu session={session} />
 			<Switch>
-				<Route path="/" exact render={ () => <Login />} />
+				<Route path="/" exact render={ () => <MainPage refetch={refetch} />} />
 				<Route path="/login" render={ () => <Login refetch={refetch} />} />
 				<Route path="/signup" render={ () => <SignUp refetch={refetch} />} />
 			</Switch>
