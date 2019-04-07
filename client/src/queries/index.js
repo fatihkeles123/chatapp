@@ -29,3 +29,17 @@ export const GET_ACTIVE_USER = gql`
 		}
 	}
 `;
+
+export const MESSAGES = gql`
+	query{
+	  messages{
+		id
+		creatorId
+		messageBody
+		messageCreationDate
+		messageUser{
+		  userName
+		}
+	  }
+	}
+`;

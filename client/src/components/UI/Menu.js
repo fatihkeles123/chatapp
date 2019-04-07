@@ -1,14 +1,17 @@
 import React, {Fragment} from 'react';
 import { NavLink } from 'react-router-dom';
+import Logout from '../../containers/Login/Logout';
 import './Menu.css';
 
 const Menu = ({session}) => {
 	console.log("menu : ",session)
+	const activeUser = session === undefined || session.activeUser===undefined;
+	console.log(activeUser);
 	return (
 		<div className="Menu">
 			<NavLink to="/" exact>messages</NavLink>
 			{
-				session.activeUser ? <LoggedIn session={session} /> : <LoggedOut session={session} />
+				!activeUser ? <LoggedIn session={session} /> : <LoggedOut />
 			}
 		</div>
 	);
@@ -17,6 +20,7 @@ const Menu = ({session}) => {
 const LoggedIn = ({ session }) => (
 	<Fragment>
 		<NavLink to='/'>@{session.activeUser.userName}</NavLink>
+		<Logout />
 	</Fragment>
 );
 
