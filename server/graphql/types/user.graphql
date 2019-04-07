@@ -3,6 +3,7 @@ type Query{
 	users: [User!]!
 	message(id: ID!): Message!
 	messages: [Message!]!
+	activeUser: User
 }
 
 type User{

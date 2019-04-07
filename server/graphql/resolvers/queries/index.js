@@ -10,7 +10,15 @@ const Query = {
     },
 	messages: async (parent, args, { Message }) => {
         return await Message.find({});
-    }
+    },
+	activeUser: async (parent, args, { activeUser, User }) => {
+		console.log("Aktif:"+activeUser.userName);
+		if (!activeUser) {
+		  return null;
+		}
+
+		return await User.findOne({ userName: activeUser.username });
+	}
 };      
 
 module.exports = Query;

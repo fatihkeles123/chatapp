@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
 import { LOGIN } from '../../queries';
 import { Mutation } from 'react-apollo';
 import ErrorMessage from '../../components/error/error';
 
 class Login extends Component{
-	state = {
-		username: '',
-		password: ''
-	};
-	
+	constructor(props) {
+        super(props);
+        this.state = {
+			username: '',
+			password: ''
+		};
+    }
+
 	onChange = event => {
 		const name = event.target.name;
 		const value = event.target.value;
@@ -19,8 +23,11 @@ class Login extends Component{
 
     onSubmit = (event, loginUser) => {
 		event.preventDefault();
-        loginUser().then(({data}) => {
+        loginUser().then(async ({ data }) => {
+			console.log(data);
 			localStorage.setItem('token',data.loginUser.token);
+			await this.props.refetch();
+			this.props.history.push('/');
 		});
 	};
 	
@@ -60,4 +67,4 @@ class Login extends Component{
 	
 }
 
-export default Login;
+export default withRouter(Login);

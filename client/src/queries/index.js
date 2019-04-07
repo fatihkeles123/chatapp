@@ -21,3 +21,11 @@ export const LOGIN = gql`
 	  }
 	}
 `;
+
+export const GET_ACTIVE_USER = gql`
+	query{
+		activeUser{
+			userName
+		}
+	}
+`;
