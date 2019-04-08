@@ -25,6 +25,7 @@ export const LOGIN = gql`
 export const GET_ACTIVE_USER = gql`
 	query{
 		activeUser{
+			id
 			userName
 		}
 	}
@@ -38,6 +39,35 @@ export const MESSAGES = gql`
 		messageBody
 		messageCreationDate
 		messageUser{
+		  id
+		  userName
+		}
+	  }
+	}
+`;
+
+export const MESSAGES_WITHOUT_USER = gql`
+	query{
+	  messages{
+		id
+		creatorId
+		messageBody
+		messageCreationDate
+	  }
+	}
+`;
+
+
+export const CREATE_MESSAGE = gql`
+	mutation($creatorId:String! $messageBody:String!){
+	  createMessage(
+		creatorId: $creatorId
+		messageBody: $messageBody
+	  ){
+		id
+		messageBody
+		messageUser{
+		  id
 		  userName
 		}
 	  }

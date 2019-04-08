@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -45,6 +46,9 @@ app.use(async (req, res, next) => {
 
 server.applyMiddleware({ app });
 
-app.listen({ port: 4351 }, () => {
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen({ port: 4351 }, () => {
     console.log(`Server: ${server.graphqlPath}`);
 });

@@ -12,6 +12,7 @@ type User{
     userName: String!
     password: String!
     creationDate: Date
+	userMessages: Message
 }
 
 type Message{
@@ -30,4 +31,8 @@ type Mutation{
     createUser(userName: String! password: String!): Token
     createMessage(messageBody: String! creatorId: String!): Message
 	loginUser(userName: String! password: String!): Token
+}
+
+type Subscription{
+	rakam: Number 
 }

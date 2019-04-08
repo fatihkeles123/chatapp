@@ -4,7 +4,6 @@ const DatabaseSchema = mongoose.Schema;
 const schemaMessage = new DatabaseSchema({
     messageBody: {
         type: String,
-        unique: true,
         required: true
     },
     messageCreationDate: {

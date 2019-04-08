@@ -30,7 +30,7 @@ return	<BrowserRouter>
 		<Fragment>
 			<Menu session={session} />
 			<Switch>
-				<Route path="/" exact render={ () => <MainPage refetch={refetch} />} />
+				<Route path="/" exact render={ () => <MainPage session={session} />} />
 				<Route path="/login" render={ () => <Login refetch={refetch} />} />
 				<Route path="/signup" render={ () => <SignUp refetch={refetch} />} />
 			</Switch>
