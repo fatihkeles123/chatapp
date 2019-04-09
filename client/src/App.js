@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import {ApolloProvider} from 'react-apollo';
-import ApolloClient from "apollo-boost";
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { WebSocketLink } from 'apollo-link-ws';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import sessionWrapper from './components/hoc/SessionWrapper';
 import SignUp from './containers/SignUp/SignUp.js';
 import Login from './containers/Login/Login.js';
@@ -10,6 +15,42 @@ import Menu from './components/UI/Menu';
 
 import './App.css';
 
+const middlewareLink = new ApolloLink((operation, forward) => {
+	operation.setContext({
+		headers: {
+			authorization: localStorage.getItem("token") || null
+		}
+	});
+	return forward(operation);
+});
+
+const wsLink = new WebSocketLink(
+	new SubscriptionClient("ws://localhost:4351/graphql", {
+		reconnect: true,
+	}),
+);
+
+const httpLink = middlewareLink.concat(
+	createHttpLink({
+		uri: "http://localhost:4351/graphql",
+	})
+);
+
+const hasSubscriptionOperation = ({ query: { definitions } }) => {
+	return definitions.some(({ kind, operation }) => kind === 'OperationDefinition' && operation === 'subscription');
+};
+
+const link = ApolloLink.split(
+	hasSubscriptionOperation,
+	wsLink,
+	httpLink
+);
+
+const client = new ApolloClient({
+	link,
+	cache: new InMemoryCache(),
+});
+/*
 const client = new ApolloClient({
   uri: "http://localhost:4351/graphql",
   fetchOptions: {
@@ -23,9 +64,9 @@ const client = new ApolloClient({
 	  });
   }
 });
-
+*/
 const Header = ({ refetch, session }) => {
-	console.log("Header : "+ refetch);
+	
 return	<BrowserRouter>
 		<Fragment>
 			<Menu session={session} />
@@ -36,9 +77,11 @@ return	<BrowserRouter>
 			</Switch>
 		</Fragment>
 	</BrowserRouter>
+	
 };
+
 const SessionWrapper = sessionWrapper(Header);
-console.log(SessionWrapper);
+
 class App extends Component {
   render() {
     return (

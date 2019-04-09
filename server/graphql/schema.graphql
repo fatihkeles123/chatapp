@@ -1,2 +1,3 @@
 # import Query from './types/user.graphql';
 # import Mutation from './types/user.graphql';
+# import Subscription from './types/user.graphql';

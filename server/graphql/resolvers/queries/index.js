@@ -12,7 +12,7 @@ const Query = {
         return await Message.find({}).sort({'messageCreationDate':'desc'});
     },
 	activeUser: async (parent, args, { activeUser, User }) => {
-		console.log("Aktif:"+activeUser.userName);
+		console.log("activeUser in query:"+activeUser.userName);
 		if (!activeUser) {
 		  return null;
 		}

@@ -73,3 +73,14 @@ export const CREATE_MESSAGE = gql`
 	  }
 	}
 `;
+
+export const MESSAGE_CATCHED = gql`
+	subscription {
+		messageCatched {
+			id
+			messageBody
+			creatorId
+			messageCreationDate
+		}
+	}
+`;

@@ -4,6 +4,11 @@
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.3.1",
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link": "^1.2.11",
+    "apollo-link-http": "^1.5.14",
+    "apollo-link-ws": "^1.0.17",
     "cors": "^2.8.5",
     "graphql": "^14.2.1",
     "react": "^16.8.6",
@@ -11,7 +16,8 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^4.4.0-beta.8",
     "react-scripts": "2.1.8",
-    "react-timeago": "^4.4.0"
+    "react-timeago": "^4.4.0",
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {
     "start": "react-scripts start",

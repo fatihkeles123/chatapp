@@ -1,0 +1,28 @@
+.ListItem{
+	list-style: none;
+	display: flex;
+	justify-content: left;
+	flex-wrap: wrap;
+	margin: 10px;
+}
+
+.ListItem .message-box{
+	width: 100%;
+	display: flex;
+	font-size: 12px;
+	color: gray;
+}
+
+.ListItem .nickname{
+	font-weight: bold;
+	font-size: 12px;
+	padding-right: 10px;
+}
+
+.ListItem .time-ago{
+	font-size: 12px;
+	color: gray;
+	display: flex;
+	flex-direction: column;
+	justify-content: bottom;
+}

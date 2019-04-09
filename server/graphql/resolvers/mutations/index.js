@@ -21,23 +21,40 @@ const Mutation = {
 
         } catch (error) {
 
-          return console.log(error);
+          return console.log("createUser mutation error : ",error);
           
         }
          
     },
-	createMessage: async (parent, args, { Message }) => {
+	createMessage: async (parent, args, { Message, pubsub }) => {
   
 		try {
         
-            return await new Message({
+            const message = await new Message({
                 messageBody: args.messageBody,
                 creatorId: args.creatorId
-            }).save();
+            });
+			
+			await message.save();
+			
+			console.log("----------------------------------------");
+			console.log(message);
+			console.log("-----------------------------");
+			
+			await pubsub.publish('messageCatched', {
+				messageCatched: {
+					messageBody: args.messageBody,
+					creatorId: args.creatorId,
+					id: message.id,
+					messageCreationDate: message.messageCreationDate
+				}
+			});
+			
+			return message;
 
         } catch (error) {
 
-          return console.log(error);
+          return console.log("Create Message Mutation:",error);
           
         }
   
@@ -45,8 +62,6 @@ const Mutation = {
 	loginUser: async (parent, args, { User }) => {
 		
 		const user = await User.findOne({ userName: args.userName });
-		console.log(args.password);
-		console.log(user.password);
 		
 		if(!user){
             throw new Error('The user cannot be found!');

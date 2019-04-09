@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import TimeAgo from 'react-timeago';
 import { Query, Mutation } from 'react-apollo';
-import { MESSAGES, CREATE_MESSAGE } from '../../queries';
+import { MESSAGES, CREATE_MESSAGE, MESSAGE_CATCHED } from '../../queries';
+import ListItem from '../../components/UI/ListItems/ListItem';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import './MainPage.css';
 
 class MainPage extends Component {
 	
@@ -93,29 +95,49 @@ class MainPage extends Component {
 							)
 						}
 					</Mutation>
-					
-					
-						
 					</div>
 					<Query query={MESSAGES}>
 					{
-						({data, loading, error}) => {
-							console.log(data);
-							if(loading) return <div>Loading</div>;
+						({data, subscribeToMore, loading, error}) => {
+							//console.log(data);
+							if(loading) return <Spinner />;
 							if(error) return <div>Error</div>;
+							
+							subscribeToMore({
+								document: MESSAGE_CATCHED,
+								updateQuery: (prev, { subscriptionData }) => {
+									
+									if(!subscriptionData.data){
+										return prev;
+									}
+									
+									const newData = subscriptionData.data.messageCatched;
+									const previousMessages = prev.messages;
+									
+									if(!previousMessages.find(message => message.id === newData.id)){
+										
+										return [newData, ...previousMessages];
+										
+									}else{
+										
+										return prev;
+										
+									}
+									
+								}
+							});
+							
 							return(
-								<ul>
+								<ul className="ListItems">
 								{
 									data.messages.map(message => (
-										<li key={message.id}>
-											<div>
-												{message.messageBody}
-											</div>
-											<div>
-												{message.messageUser.userName}
-											</div>
-											<TimeAgo date={message.messageCreationDate} />
-										</li>
+										<ListItem
+											key={message.id}
+											id={message.id}
+											messageBody={message.messageBody}
+											userName={message.messageUser.userName}
+											date={message.messageCreationDate}
+										/>
 									))
 								}
 								</ul>

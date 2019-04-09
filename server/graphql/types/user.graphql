@@ -17,9 +17,9 @@ type User{
 
 type Message{
 	id: ID!
-	messageBody: String!
+	messageBody: String
 	messageCreationDate: Date
-	creatorId: String!
+	creatorId: String
 	messageUser: User
 }
 
@@ -34,5 +34,5 @@ type Mutation{
 }
 
 type Subscription{
-	rakam: Number 
+	messageCatched: Message
 }
