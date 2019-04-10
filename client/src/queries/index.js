@@ -66,6 +66,8 @@ export const CREATE_MESSAGE = gql`
 	  ){
 		id
 		messageBody
+		creatorId
+		messageCreationDate
 		messageUser{
 		  id
 		  userName
@@ -81,6 +83,20 @@ export const MESSAGE_CATCHED = gql`
 			messageBody
 			creatorId
 			messageCreationDate
+			messageUser{
+			  id
+			  userName
+			}
 		}
+	}
+`;
+
+export const USERS = gql `
+	query{
+	  users{
+		id
+		userName
+		creationDate
+	  }
 	}
 `;

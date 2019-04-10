@@ -21,6 +21,7 @@ const Menu = ({session}) => {
 const LoggedIn = ({ session }) => (
 
 	<Fragment>
+		<NavLink to='/users'>users</NavLink>
 		<NavLink to='/'>@{session.activeUser.userName}</NavLink>
 		<Logout />
 	</Fragment>

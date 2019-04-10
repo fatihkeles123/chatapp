@@ -7,7 +7,7 @@ const ListItem = (props) => (
 		<div className="nickname">
 			@{props.userName}
 		</div>
-		<TimeAgo className="time-ago" date={props.date} />
+		{props.pending ? <div className="pending">pending...</div> : <TimeAgo className="time-ago" date={props.date} />}
 		<div className="message-box">
 			{props.messageBody}
 		</div>

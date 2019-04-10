@@ -11,6 +11,7 @@ import sessionWrapper from './components/hoc/SessionWrapper';
 import SignUp from './containers/SignUp/SignUp.js';
 import Login from './containers/Login/Login.js';
 import MainPage from './containers/MainPage/MainPage.js';
+import Users from './containers/UsersPage/UsersPage.js';
 import Menu from './components/UI/Menu';
 
 import './App.css';
@@ -50,21 +51,7 @@ const client = new ApolloClient({
 	link,
 	cache: new InMemoryCache(),
 });
-/*
-const client = new ApolloClient({
-  uri: "http://localhost:4351/graphql",
-  fetchOptions: {
-	  credentials: 'include'
-  },
-  request: operation => {
-	  operation.setContext({
-		  headers: {
-			  authorization: localStorage.getItem('token')
-		  }
-	  });
-  }
-});
-*/
+
 const Header = ({ refetch, session }) => {
 	
 return	<BrowserRouter>
@@ -72,6 +59,7 @@ return	<BrowserRouter>
 			<Menu session={session} />
 			<Switch>
 				<Route path="/" exact render={ () => <MainPage session={session} />} />
+				<Route path="/users" render={ () => <Users refetch={refetch}/>} />
 				<Route path="/login" render={ () => <Login refetch={refetch} />} />
 				<Route path="/signup" render={ () => <SignUp refetch={refetch} />} />
 			</Switch>

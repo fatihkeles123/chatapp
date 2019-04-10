@@ -9,7 +9,7 @@ const Query = {
         return await Message.findById({ _id: args.id });
     },
 	messages: async (parent, args, { Message }) => {
-        return await Message.find({}).sort({'messageCreationDate':'desc'});
+        return await Message.find({}).sort({'messageCreationDate':'asc'});
     },
 	activeUser: async (parent, args, { activeUser, User }) => {
 		console.log("activeUser in query:"+activeUser.userName);
